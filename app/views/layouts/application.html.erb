@@ -44,11 +44,10 @@
     </nav>
 
     <div id="main-content">
-      <% flash.each do |name, msg| %>
-        <%= content_tag(:div, msg, class: 'alert alert-#{name}') %>
-      <% end %>
-
       <div class="row">
+        <% flash.each do |name, msg| %>
+          <%= content_tag(:div, msg, class: 'alert-box alert-#{name}') %>
+        <% end %>
         <div id="content" class="small-12 small-centered columns">
           <%= yield %>
         </div>
