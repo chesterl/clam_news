@@ -1,32 +1,53 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>ClamNews</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+  <head>
+  	<meta charset="utf-8" />
 
-	<% flash.each do |name, msg| %>
-		<%= content_tag(:div, msg, class: 'alert alert-#{name}') %>
-  <% end %>
+  	<!-- Uncomment to make IE8 render like IE7 -->
+  	<!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
 
-  <% if user_signed_in? %>
-    <ul>
-      <li><%= link_to 'Submit link', new_link_path %></li>
-      <li><%= link_to 'Account', edit_user_registration_path %></li>
-      <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
-    </ul>
-  <% else %>
-    <ul>
-      <li><%= link_to 'Sign up', new_user_registration_path %></li>
-      <li><%= link_to 'Sign in', new_user_session_path %></li>
-    </ul>
-  <% end %>
+  	<!-- Set the viewport width to device width for mobile -->
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "ClamNews" %>">
 
 
-<%= yield %>
+  	<title><%= content_for?(:title) ? yield(:title) : "ClamNews" %></title>
 
-</body>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+  	<%= javascript_include_tag "vendor/custom.modernizr" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+
+    <% flash.each do |name, msg| %>
+      <%= content_tag(:div, msg, class: 'alert alert-#{name}') %>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <ul>
+        <li><%= link_to 'Submit link', new_link_path %></li>
+        <li><%= link_to 'Account', edit_user_registration_path %></li>
+        <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
+      </ul>
+    <% else %>
+      <ul>
+        <li><%= link_to 'Sign up', new_user_registration_path %></li>
+        <li><%= link_to 'Sign in', new_user_session_path %></li>
+      </ul>
+    <% end %>
+
+
+    <%= yield %>
+
+    
+    <%= javascript_include_tag "application" %>
+  </body>
 </html>
