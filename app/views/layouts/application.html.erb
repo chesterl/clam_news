@@ -7,47 +7,54 @@
 <html lang="en"> <!--<![endif]-->
   <head>
   	<meta charset="utf-8" />
-
   	<!-- Uncomment to make IE8 render like IE7 -->
   	<!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
-
   	<!-- Set the viewport width to device width for mobile -->
   	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "ClamNews" %>">
-
-
   	<title><%= content_for?(:title) ? yield(:title) : "ClamNews" %></title>
-
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   	<%= javascript_include_tag "vendor/custom.modernizr" %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-
     <%= csrf_meta_tags %>
   </head>
 
   <body>
 
-    <% flash.each do |name, msg| %>
-      <%= content_tag(:div, msg, class: 'alert alert-#{name}') %>
-    <% end %>
-
-    <% if user_signed_in? %>
-      <ul>
-        <li><%= link_to 'Submit link', new_link_path %></li>
-        <li><%= link_to 'Account', edit_user_registration_path %></li>
-        <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
+    <nav class="top-bar">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="#">Clam News</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
       </ul>
-    <% else %>
-      <ul>
-        <li><%= link_to 'Sign up', new_user_registration_path %></li>
-        <li><%= link_to 'Sign in', new_user_session_path %></li>
-      </ul>
-    <% end %>
 
+      <section class="top-bar-section">
+        <ul class="right">
+          <% if user_signed_in? %>
+            <li><%= link_to 'Submit link', new_link_path %></li>
+            <li><%= link_to 'Account', edit_user_registration_path %></li>
+            <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
+          <% else %>
+            <li><%= link_to 'Sign up', new_user_registration_path %></li>
+            <li><%= link_to 'Sign in', new_user_session_path %></li>
+          <% end %>
+        </ul>
+      </section>
+    </nav>
 
-    <%= yield %>
+    <div id="main-content">
+      <% flash.each do |name, msg| %>
+        <%= content_tag(:div, msg, class: 'alert alert-#{name}') %>
+      <% end %>
 
-    
+      <div class="row">
+        <div id="content" class="small-12 small-centered columns">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
     <%= javascript_include_tag "application" %>
   </body>
 </html>
