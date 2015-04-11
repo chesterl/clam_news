@@ -28,6 +28,9 @@
 		margin-top: 2em;
 	}
 	#comments {
+		.comments-wrapper {
+			width: 100%;
+		}
 		.comment {
 			padding: 1em 0;
 			border-top: 1px solid #E9E9E9;
