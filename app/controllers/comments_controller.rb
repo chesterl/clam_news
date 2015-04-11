@@ -4,7 +4,9 @@ class CommentsController < ApplicationController
   respond_to :html
 
   def create
-    @comment = Comment.new(comment_params)
+    @link = Link.find(params[:link_id])
+    @comment = @link.comments.new(comment_params)
+    @comment.user = current_user
     @comment.save
     respond_with(@comment)
   end
