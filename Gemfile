@@ -41,5 +41,6 @@ gem 'spring',        group: :development
 
 gem 'devise'
 gem 'zurb-foundation', '~> 4.0.0'
+gem 'acts_as_votable', '~> 0.10.0'
 
 
